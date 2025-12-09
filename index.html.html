@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feiruna Prints & Crafts</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #F5F5F5;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #4CAF50, #81C784);
+            color: #FFFFFF;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 600;
+            padding: 15px 0;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('your-hero-image.jpg') center/cover no-repeat;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #FFFFFF;
+            padding: 0 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease 0.3s;
+        }
+
+        .hero.visible h2,
+        .hero.visible p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #4CAF50;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .section.visible h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Services / Product Cards */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-item {
+            background: linear-gradient(145deg, #FFFFFF, #E8F5E9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .service-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .service-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(145deg, #F0FFF4, #C8E6C9);
+        }
+
+        .service-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-item h4 {
+            padding: 20px;
+            font-size: 1.5rem;
+            color: #2E7D32;
+        }
+
+        .service-item p {
+            padding: 0 20px 20px;
+            font-size: 1rem;
+            color: #555555;
+        }
+
+        /* About Us Section */
+        .about {
+            background: linear-gradient(145deg, #FFFFFF, #E8F5E9);
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 40px auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease, box-shadow 0.4s ease, background 0.4s ease;
+        }
+
+        .about.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about:hover {
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(145deg, #F0FFF4, #C8E6C9);
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #555555;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #4CAF50;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .contact h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222222;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        @media(max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Feiruna Prints & Crafts</h1>
+        <p>Bring Your Creativity to Life!</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div>
+            <h2>Handmade Crafts & Personalized Prints</h2>
+            <p>Create memorable gifts with our custom designs.</p>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h3>About Us</h3>
+        <p>
+            Feiruna Prints & Crafts is dedicated to bringing creativity and personalization to every project. 
+            We specialize in handmade crafts, custom posters, personalized mugs, and customized calendars, 
+            combining quality materials with unique designs tailored to our clients’ needs. Our mission is 
+            to transform ideas into beautiful, tangible creations that celebrate individuality and special moments. 
+            With attention to detail and a passion for artistry, we ensure every product is crafted with care and professionalism.
+        </p>
+    </section>
+
+    <section class="section" id="products">
+        <h3>Our Products</h3>
+        <div class="services">
+            <div class="service-item">
+                <h4>Handmade Crafts</h4>
+                <p>Unique, personalized crafts made with love and creativity.</p>
+            </div>
+            <div class="service-item">
+                <h4>Print Posters</h4>
+                <p>High-quality custom posters for home, events, or gifts.</p>
+            </div>
+            <div class="service-item">
+                <h4>Personalized Mugs</h4>
+                <p>Create memorable gifts with custom designs on mugs.</p>
+            </div>
+            <div class="service-item">
+                <h4>Customized Calendars</h4>
+                <p>Make every day special with your own personalized calendars.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h3>Contact Us</h3>
+        <p>Email: feirunaprintsandcrafts@gmail.com</p>
+        <p>Phone: +63 912 345 6789</p>
+        <p>Location: Cambuac Sur, Sikatuna, Bohol, Philippines</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Feiruna Prints & Crafts. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Fade-in animation on scroll
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Animate hero
+        const hero = document.querySelector('.hero');
+        hero.classList.add('visible');
+
+        // Animate sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Animate service cards
+        document.querySelectorAll('.service-item').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Animate About Us
+        const about = document.querySelector('.about');
+        observer.observe(about);
+    </script>
+
+</body>
+</html>
